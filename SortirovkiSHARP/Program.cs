@@ -47,6 +47,7 @@ namespace SortirovkiSHARP
                 Console.WriteLine("Бинарное слияние - 10(c 211)");
                 Console.WriteLine("Метод вставки в список - 11(с 99)");
                 Console.WriteLine("Выйти - 12");
+
                 var input = Console.ReadLine();
                 if (int.TryParse(input, out alg) 
                     && (alg < 12 && alg > 0)
@@ -74,6 +75,16 @@ namespace SortirovkiSHARP
                     {
                         case 1:
                             mass = mass.SortAlgorithm1();
+                            break;
+                        case 2:
+                            
+                            mass = mass.SortAlgorithm2();
+                            break;
+                        case 3:
+                            mass = mass.SortAlgorithm3();
+                            break;
+                        case 4:
+                            mass = mass.SortAlgorithm4(new int[] { 5, 3, 1 });
                             break;
                         default:
                             Console.WriteLine("Алгоритм пока не реализован");
