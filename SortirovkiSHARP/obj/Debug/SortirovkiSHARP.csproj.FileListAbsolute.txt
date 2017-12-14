@@ -4,3 +4,9 @@ C:\Users\ivank\OneDrive\Документы\Visual Studio 2017\Projects\Sortirovk
 C:\Users\ivank\OneDrive\Документы\Visual Studio 2017\Projects\Sortirovki\SortirovkiSHARP\obj\Debug\SortirovkiSHARP.csprojResolveAssemblyReference.cache
 C:\Users\ivank\OneDrive\Документы\Visual Studio 2017\Projects\Sortirovki\SortirovkiSHARP\obj\Debug\SortirovkiSHARP.exe
 C:\Users\ivank\OneDrive\Документы\Visual Studio 2017\Projects\Sortirovki\SortirovkiSHARP\obj\Debug\SortirovkiSHARP.pdb
+C:\Users\user\Desktop\Sortitovki\Sortirovki\SortirovkiSHARP\bin\Debug\SortirovkiSHARP.exe.config
+C:\Users\user\Desktop\Sortitovki\Sortirovki\SortirovkiSHARP\bin\Debug\SortirovkiSHARP.exe
+C:\Users\user\Desktop\Sortitovki\Sortirovki\SortirovkiSHARP\bin\Debug\SortirovkiSHARP.pdb
+C:\Users\user\Desktop\Sortitovki\Sortirovki\SortirovkiSHARP\obj\Debug\SortirovkiSHARP.csprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\Sortitovki\Sortirovki\SortirovkiSHARP\obj\Debug\SortirovkiSHARP.exe
+C:\Users\user\Desktop\Sortitovki\Sortirovki\SortirovkiSHARP\obj\Debug\SortirovkiSHARP.pdb
