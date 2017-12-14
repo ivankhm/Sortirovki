@@ -21,7 +21,7 @@ void main()
 		phraise.push_back(My_word(mass[i],i));
 	setlocale(0, "Russian");
 	int alg = 0;	
-	/*do {
+	do {
 		cout << "Подсчёт сравнений - 1(c 78)" << endl; //+
 		cout << "Подсчёт распределения - 2(c 80)" << endl; //-
 		cout << "Метод простых вставок - 3(c 82)" << endl; //-
@@ -40,17 +40,19 @@ void main()
 	{
 	case 1: func_1(); break;
 	case 2: func_2(); break;
-	case 1: func_1(); break;
-	case 1: func_1(); break;
-	case 1: func_1(); break;
-	case 1: func_1(); break;
-	case 1: func_1(); break;
-	case 1: func_1(); break;
-	case 1: func_1(); break;
-	case 1: func_1(); break;
+	case 3: func_1(); break;
+	case 4: func_1(); break;
+	case 5: func_1(); break;
+	case 6: func_1(); break;
+	case 7: func_1(); break;
+	case 8: func_1(); break;
+	case 9: func_1(); break;
+	case 10: func_1(); break;
+	case 11: func_1(); break;
+
 	default:
 		break;
-	}*/
+	}
 
 	for (int i = 0; i < N; i++)
 		cout << phraise[i].str << endl;
