@@ -85,8 +85,8 @@ namespace SortirovkiSHARP
                         case 4:
                             mass = mass.SortAlgorithm4(new int[] { 5, 3, 1 });
                             break;
-                        case 5:
-                            mass = mass.SortAlgorithm5();
+                        case 6:
+                            mass = mass.SortAlgorithm6();
                             break;
                         default:
                             Console.WriteLine("Алгоритм пока не реализован");

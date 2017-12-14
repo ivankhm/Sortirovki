@@ -204,7 +204,14 @@ namespace SortirovkiSHARP.Algorithm
 
             return result;
         }
+
         public static List<KeyValuePair<int, string>> SortAlgorithm5(this IList<KeyValuePair<int, string>> mass)
+        {
+
+            return null;
+        }
+
+        public static List<KeyValuePair<int, string>> SortAlgorithm6(this IList<KeyValuePair<int, string>> mass)
         {
             var N = mass.Count;
             int l = 1;
@@ -275,11 +282,8 @@ namespace SortirovkiSHARP.Algorithm
             }
             return result;
         }
-        public static List<KeyValuePair<int, string>> SortAlgorithm6(this IList<KeyValuePair<int, string>> mass)
-        {
 
-            return null;
-        }
+        
         public static List<KeyValuePair<int, string>> SortAlgorithm7(this IList<KeyValuePair<int, string>> mass)
         {
 
