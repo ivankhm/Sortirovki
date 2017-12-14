@@ -206,16 +206,18 @@ namespace SortirovkiSHARP.Algorithm
         }
         public static List<KeyValuePair<int, string>> SortAlgorithm5(this IList<KeyValuePair<int, string>> mass)
         {
+            var N = mass.Count;
             int l = 1;
-            int r = mass.Count;
+            int r = mass.Count - 1; //mass.Count
             int M = 3;
             int[] temp = new int[2];
             var MyStack = new Stack<int[]>();
             do
             {
                 int i = l;
-                int j = r + 1;
-                int K = mass[j].Key;         
+                int j = r; // r + 1
+                int K = mass[j].Key;
+                
                 do
                 {
                     do
@@ -249,24 +251,29 @@ namespace SortirovkiSHARP.Algorithm
                     {
                         r = j--;
                     }
+
+                
             } while ((r<=M)&&(l<=M));
+            //стэк пустой и эт действие ни на что не влияет чет хз
+            /*
             temp = MyStack.Pop();
             l = temp[0];
             r = temp[1];
+            */
             mass = mass.SortAlgorithm3();
 
             var result = new List<KeyValuePair<int, string>>();
 
-            for (int i = 0; i < 9; ++i)
+            for (int i = 0; i < N; ++i)
             {
                 result.Add(new KeyValuePair<int, string>());
             }
 
-            for (int i = 0; i < 9; ++i)
+            for (int i = 0; i < N; ++i)
             {
                 result[i] = mass[i];
             }
-            return null;
+            return result;
         }
         public static List<KeyValuePair<int, string>> SortAlgorithm6(this IList<KeyValuePair<int, string>> mass)
         {
