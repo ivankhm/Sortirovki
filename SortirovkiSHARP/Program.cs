@@ -3,13 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SortirovkiSHARP.Algorithm;
+using SortirovkiSHARP.Extentions;
 
 namespace SortirovkiSHARP
 {
     class Program
     {
+        static void PrintMass(List<KeyValuePair<int, string>> mass)
+        {
+            foreach(var m in mass)
+            {
+                Console.WriteLine($"Key: {m.Key} Value: {m.Value}");
+            }
+        }
         
+        static void RessAnyKeyToContinue()
+        {
+            Console.WriteLine("Нажмите любую клавишу...");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
         static void Main(string[] args)
         {
             List<KeyValuePair<int, string>> mass = new List<KeyValuePair<int, string>>();
@@ -17,12 +32,69 @@ namespace SortirovkiSHARP
             {
                 "Smile", "Sweet", "Sister", "Sadistic", "Surprise", "Service", "We", "Are", "STYLE", "!"
             };
-            Random rng = new Random();
-            foreach(var w in words)
+            int alg = 0;
+            do
             {
-                mass.Add(new KeyValuePair<int, string>(rng.Next(1, 10), w));
-            }
+                Console.WriteLine("Подсчёт сравнений - 1(c 78)");
+                Console.WriteLine("Подсчёт распределения - 2(c 80)");
+                Console.WriteLine("Метод простых вставок - 3(c 82)");
+                Console.WriteLine("Сортировка Шелла - 4(c 86)");
+                Console.WriteLine("Обменная поразрядная сортировка - 5(c 128)");
+                Console.WriteLine("Быстрая сортировка - 6(c 119)");
+                Console.WriteLine("Модификация метода пузырька - 7(c 109)");
+                Console.WriteLine("Двухпутевое слияние - 8(c 164)");
+                Console.WriteLine("Пирамидальная сортировка - 9(c 150)");
+                Console.WriteLine("Бинарное слияние - 10(c 211)");
+                Console.WriteLine("Метод вставки в список - 11(с 99)");
+                Console.WriteLine("Выйти - 12");
+                var input = Console.ReadLine();
+                if (int.TryParse(input, out alg) 
+                    && (alg < 12 && alg > 0)
+                    )
+                {
+                    //Очищение массива и заполнение словами
+                    mass.Clear();
+                    for (int i = 0; i < words.Count; ++i)
+                    {
+                        mass.Add(new KeyValuePair<int, string>(i, words[i]));
+                    }
+                    //Печать ДО
+                    Console.WriteLine("Изначальный лист: ");
+                    PrintMass(mass);
 
+                    //Перемешивание массива
+                    mass.Shuffle();
+                    //Печать перемешанного
+                    Console.WriteLine("Перемешанный лист: ");
+                    PrintMass(mass);
+
+                    //Сортировка
+
+                    switch(alg)
+                    {
+                        case 1:
+                            mass = mass.SortAlgorithm1();
+                            break;
+                        default:
+                            Console.WriteLine("Алгоритм пока не реализован");
+                            break;
+                    }
+                    
+                    Console.WriteLine("Отсортированный лист: ");
+                    PrintMass(mass);
+                    RessAnyKeyToContinue();
+                }
+                else
+                    if (alg == 12)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Некорректный ввод!");
+                        RessAnyKeyToContinue();
+                    }
+            } while (true);
         }
     }
 }
