@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SortirovkiSHARP.Extentions;
-
+using System;
 
 namespace SortirovkiSHARP.Algorithm
 {
@@ -11,16 +11,18 @@ namespace SortirovkiSHARP.Algorithm
         {
             int N = mass.Count;
             var count = new int[N];
-
+            //C1
             for (int i = 0; i < N; i++)
             {
                 count[i] = 0;
             }
-
+            //C2
             for (int i = N - 1; i > 0; i--)
             {
+                //C3
                 for (int j = i - 1; j >= 0; j--)
                 {
+                    //C4
                     if (mass[i].Key < mass[j].Key)
                     {
                         count[j]++;
@@ -51,7 +53,8 @@ namespace SortirovkiSHARP.Algorithm
         {
             int N = mass.Count;
             int u = 1000000, v = -1;
-
+            
+            //Считаем диапазон
             for (int i = 0; i < N; i++)
             {
                 if (mass[i].Key < u)
@@ -63,19 +66,20 @@ namespace SortirovkiSHARP.Algorithm
                     v = mass[i].Key;
                 }
             }
-
+            
             var count = new int[v+1];
-
+            //D1
             for (int i = 0; i < N; i++)
             {
                 count[i] = 0;
             }
-            
+            //D2
             for (int j = 0; j < N; j++)
             {
+                //D3
                 count[mass[j].Key]++;
             }
-            
+            //D4
             for (int i = u + 1; i < v + 1; ++i)
             {
                 count[i] += count[i - 1];
@@ -88,9 +92,10 @@ namespace SortirovkiSHARP.Algorithm
                 result.Add(new KeyValuePair<int, string>());
                 count[i]--;
             }
-            
+            //D5
             for (int j = N-1; j >= 0; --j)
             {
+                //D6
                 int i = count[mass[j].Key];
                 result[i] = mass[j];
                 count[mass[j].Key] = i - 1;
@@ -135,14 +140,17 @@ namespace SortirovkiSHARP.Algorithm
 
             int i;
             KeyValuePair<int, string> Mm;
-            
-            for (int j = 1; j <= 9; j++)
+            //S1
+            for (int j = 1; j < N; j++)
             {
+                //S2
                 i = j - 1;
                 Mm = result[j];
 
+                //S3
                 while(Mm.Key < result[i].Key)
                 {
+                    //S4
                     result[i + 1] = result[i];
                     i--;
                     if(i == -1)
@@ -150,6 +158,7 @@ namespace SortirovkiSHARP.Algorithm
                         break;
                     }
                 }
+                //S5
                 result[i + 1] = Mm;
             }
 
@@ -180,7 +189,7 @@ namespace SortirovkiSHARP.Algorithm
                     int i = j - h_s;
                     var tmp = result[j];
 
-                    //4
+                    //D4
                     while (tmp.Key < result[i].Key)
                     {
                         //D5
@@ -208,7 +217,8 @@ namespace SortirovkiSHARP.Algorithm
             var l = 1;
             var r = N;
             var b = 1;
-            int j;
+            int j=0;
+            int i = 0;
             var m = 10;
             //var result = Convert.ToString(number, 2);     
             var MyStack = new Stack<int[]>();
@@ -240,7 +250,7 @@ namespace SortirovkiSHARP.Algorithm
                 {
                     do
                     {
-                        var i = l;
+                        i = l;
                         j = r;
                         do
                         {
@@ -263,7 +273,6 @@ namespace SortirovkiSHARP.Algorithm
                         if (b > m) break;
                         else if (j == r) l++;
                      } while ((j<=l)||(j==r));
-
                     //R9
                     temp[0] = r;
                     temp[1] = b;
@@ -380,17 +389,248 @@ namespace SortirovkiSHARP.Algorithm
         public static List<KeyValuePair<int, string>> SortAlgorithm7(this IList<KeyValuePair<int, string>> mass)
         {
 
-            return null;
-        }
-        public static List<KeyValuePair<int, string>> SortAlgorithm8(this IList<KeyValuePair<int, string>> mass)
-        {
+            var result = new List<KeyValuePair<int, string>>();
 
-            return null;
+            foreach (var m in mass)
+            {
+                result.Add(m);
+            }
+
+            var N = mass.Count;
+            //M1
+            int t = (int)Math.Log(N, 2) + 1;
+            int p = (int)Math.Pow(2, t - 1);
+            //M2
+            do
+            {
+                int q = (int)Math.Pow(2, t - 1);
+                int r = 0;
+                int d = p;
+
+                //M3
+                do
+                {
+                    for (int i = 0; (i < N - d); ++i)
+                    {
+                        if ((i & p) == r)
+                        {
+                            //M4
+                            if (result[i].Key > result[i + d].Key)
+                            {
+                                result.Swap(i, i + d);
+                            }
+                        }
+                    }
+                    //M5
+                    if (q != p)
+                    {
+                        d = q - p;
+                        q /= 2;
+                        r = p;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (true);
+
+                p /= 2;
+            } while (p > 0);
+
+
+            /*
+             * Обычный пузырек
+            var N = result.Count;
+
+            var BOUND = N-1;
+
+            int t;
+            while (true)
+            {
+                t = -1;
+                if (BOUND != 0)
+                {
+                    for (int j = 0; j < BOUND; ++j)
+                    {
+                        if (result[j].Key > result[j + 1].Key)
+                        {
+                            result.Swap(j, j + 1);
+                            t = j;
+                        }
+                    }
+                }
+                if (t == -1)
+                {
+                    break;
+                }
+                BOUND = t;
+            }
+            */
+            return result;
+        }
+        public static List<KeyValuePair<int, string>> SortAlgorithm8(this IList<KeyValuePair<int, string>> first, List<KeyValuePair<int, string>> second)
+        {
+            var n = second.Count;
+            var m = first.Count;
+            
+
+            var result = new List<KeyValuePair<int, string>>();
+
+            for (int t = 0; t < n + m; ++t)
+            {
+                result.Add(new KeyValuePair<int, string>());
+            }
+
+            for (int t = 1; t < m; ++t)
+            {
+                if (first[t-1].Key > first[t].Key)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(first));
+                }
+            }
+
+            for (int t = 1; t < n; ++t)
+            {
+                if (second[t - 1].Key > second[t].Key)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(second));
+                }
+            }
+
+            int i, j, k;
+
+            //M1
+            i = 0;
+            j = 0;
+            k = 0;
+            
+            do
+            {
+                //M2
+                if (first[i].Key <= second[j].Key)
+                {
+                    //M3
+                    result[k] = first[i];
+                    k++;
+                    i++;
+                    if (i < m)
+                    {
+                        //M2
+                        continue;
+                    }
+                    //M4
+                    for (int t = k, l = j; (t < m + n) && (l < n); ++t, ++l)
+                    {
+                        result[t] = second[l];
+                    }
+                    break;
+                }
+                else
+                {
+                    result[k] = second[j];
+                    k++;
+                    j++;
+                    if (j < n)
+                    {
+                        //M2
+                        continue;
+                    }
+                    //M6
+                    for (int t = k, l = i; (t < m + n) && (l < m); ++t, ++l)
+                    {
+                        result[t] = first[l];
+                    }
+                    break;
+                }
+            } while (true);
+
+
+            return result;
         }
         public static List<KeyValuePair<int, string>> SortAlgorithm9(this IList<KeyValuePair<int, string>> mass)
         {
+            var result = new List<KeyValuePair<int, string>>();
 
-            return null;
+            foreach (var m in mass)
+            {
+                result.Add(m);
+            }
+            var N = result.Count;
+
+            
+            int l; 
+            int r;
+            int j, i;
+            KeyValuePair<int, string> tmp;
+            //H1
+            l = N / 2 + 1;
+            r = N;
+            do
+            {
+                //H2
+                if (l > 1)
+                {
+                    l--;
+                    tmp = result[l - 1];
+                }
+                else
+                {
+                    tmp = result[r - 1];
+                    result[r - 1] = result[0];
+                    r--;
+                    if (r == 1)
+                    {
+                        result[0] = tmp;
+                        //end
+                        break;
+                    }
+                }
+
+                //protaskivanie
+
+                //H3
+                j = l;
+
+                do
+                {
+                    //H4
+                    i = j;//??
+                    j *= 2;
+
+                    if (j <= r)
+                    {
+                        //HX
+                        if (j != r)
+                        {
+                            //H5
+                            if (result[j - 1].Key < result[j].Key)
+                            {
+                                j++;
+                            }
+                        }
+                        //H6
+                        if (tmp.Key < result[j - 1].Key)
+                        {
+                            //H7
+                            result[i - 1] = result[j - 1];
+                            //H4
+                            continue;
+                        }
+
+                    }
+
+                    //H8
+                    result[i - 1] = tmp;
+                    //H2
+                    break;
+                    
+                } while (true);
+            
+            } while (true);
+
+
+            return result;
         }
         public static List<KeyValuePair<int, string>> SortAlgorithm10(this IList<KeyValuePair<int, string>> mass)
         {

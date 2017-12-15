@@ -41,7 +41,7 @@ namespace SortirovkiSHARP
                 Console.WriteLine("Сортировка Шелла - 4(c 86)");
                 Console.WriteLine("Обменная поразрядная сортировка - 5(c 128)");
                 Console.WriteLine("Быстрая сортировка - 6(c 119)");
-                Console.WriteLine("Модификация метода пузырька - 7(c 109)");
+                Console.WriteLine("Обменная сортировка слиянием(Модификация метода пузырька) - 7(c 114)");
                 Console.WriteLine("Двухпутевое слияние - 8(c 164)");
                 Console.WriteLine("Пирамидальная сортировка - 9(c 150)");
                 Console.WriteLine("Бинарное слияние - 10(c 211)");
@@ -90,6 +90,23 @@ namespace SortirovkiSHARP
                             break;
                         case 6:
                             mass = mass.SortAlgorithm6();
+                            break;
+                        case 7:
+                            mass = mass.SortAlgorithm7();
+                            break;
+                        case 8:
+                            List<KeyValuePair<int, string>> fisrt = mass.Take(mass.Count / 2).ToList();
+                            List<KeyValuePair<int, string>> second = mass.Skip(mass.Count / 2).ToList();
+                            Console.WriteLine("Первая половина: ");
+                            PrintMass(fisrt);
+                            Console.WriteLine("Вторая половина: ");
+                            PrintMass(second);
+                            fisrt = fisrt.SortAlgorithm1();
+                            second = second.SortAlgorithm1();
+                            mass = fisrt.SortAlgorithm8(second);
+                            break;
+                        case 9:
+                            mass = mass.SortAlgorithm9();
                             break;
                         default:
                             Console.WriteLine("Алгоритм пока не реализован");
