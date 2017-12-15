@@ -204,9 +204,12 @@ namespace SortirovkiSHARP.Algorithm
         public static List<KeyValuePair<int, string>> SortAlgorithm5(this IList<KeyValuePair<int, string>> mass)
         {
             var N = mass.Count;
+            //R1
             var l = 1;
             var r = N;
             var b = 1;
+            int j;
+            var m = 10;
             //var result = Convert.ToString(number, 2);     
             var MyStack = new Stack<int[]>();
             int[] temp = new int[2];
@@ -232,25 +235,42 @@ namespace SortirovkiSHARP.Algorithm
 
             do
             {
+                //R2
                 if (l == r)
                 {
-                    var i = l;
-                    var j = r;
                     do
                     {
-                        if (ListExtentions.GetBit(result_mass[i].Key, b) == 1)
+                        var i = l;
+                        j = r;
+                        do
                         {
-                            j--;
-                            if (i <= j)
+                            //R3
+                            if (ListExtentions.GetBit(result_mass[i].Key, b) == 1)
                             {
-                                if (ListExtentions.GetBit(result_mass[j + 1].Key, b) == 0) R7
-
+                                //R6
+                                j--;
+                                if (i <= j)
+                                {
+                                    //R5 -> R7
+                                    if (ListExtentions.GetBit(result_mass[j + 1].Key, b) == 0) result_mass.Swap(i, j + 1);
+                                } else break;
                             }
-                        }
-                        i++;
-                    } while (i <= j);
-                    if (i <= j)
+                            //R4
+                            i++;
+                        } while (i <= j);
+                        //R8
+                        b++;
+                        if (b > m) break;
+                        else if (j == r) l++;
+                     } while ((j<=l)||(j==r));
+
+                    //R9
+                    temp[0] = r;
+                    temp[1] = b;
+                    MyStack.Push(temp);
+                    r = j;
                 }
+                //R10
                 else if (MyStack.Count > 0 )
                 {
                     l = r + 1;
@@ -357,8 +377,6 @@ namespace SortirovkiSHARP.Algorithm
             } while (r-l>0);
             return result_mass;
         }
-
-        
         public static List<KeyValuePair<int, string>> SortAlgorithm7(this IList<KeyValuePair<int, string>> mass)
         {
 
