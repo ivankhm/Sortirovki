@@ -28,6 +28,10 @@ namespace SortirovkiSHARP.Extentions
                 list[n] = value;
             }
         }
-        
+
+        public static int GetBit(int bits, int index)
+        {
+            return (bits >> index) & 1;
+        }
     }
 }
