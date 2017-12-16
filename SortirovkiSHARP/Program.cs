@@ -41,7 +41,7 @@ namespace SortirovkiSHARP
                 Console.WriteLine("Сортировка Шелла - 4(c 86)");
                 Console.WriteLine("Обменная поразрядная сортировка - 5(c 128)");
                 Console.WriteLine("Быстрая сортировка - 6(c 119)");
-                Console.WriteLine("Обменная сортировка слиянием(Модификация метода пузырька) - 7(c 114)");
+                Console.WriteLine("Шейкер(Модификация метода пузырька) - 7(c 114)");
                 Console.WriteLine("Двухпутевое слияние - 8(c 164)");
                 Console.WriteLine("Пирамидальная сортировка - 9(c 150)");
                 Console.WriteLine("Бинарное слияние - 10(c 211)");

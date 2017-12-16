@@ -187,7 +187,7 @@ namespace SortirovkiSHARP.Algorithm
             var l = 1;
             var r = N;
             var b = 1;
-            int j=0;
+            int j = 0;
             int i = 0;
             var m = 10;
             //var result = Convert.ToString(number, 2);     
@@ -212,7 +212,6 @@ namespace SortirovkiSHARP.Algorithm
                 new KeyValuePair<int, string>(1601, "Error5"),
                 new KeyValuePair<int, string>(1614, "Error6")
             };
-
             do
             {
                 //R2
@@ -359,12 +358,10 @@ namespace SortirovkiSHARP.Algorithm
         {
 
             var result = new List<KeyValuePair<int, string>>();
-
             foreach (var m in mass)
             {
                 result.Add(m);
             }
-
             var N = mass.Count;
             //M1
             int t = (int)Math.Log(N, 2) + 1;
@@ -555,16 +552,13 @@ namespace SortirovkiSHARP.Algorithm
                         break;
                     }
                 }
-
                 //protaskivanie
-
                 //H3
                 j = l;
-
                 do
                 {
                     //H4
-                    i = j;//??
+                    i = j;
                     j *= 2;
 
                     if (j <= r)
@@ -589,7 +583,7 @@ namespace SortirovkiSHARP.Algorithm
 
                     }
 
-                    //H8
+                    //H8    
                     result[i - 1] = tmp;
                     //H2
                     break;
@@ -597,8 +591,6 @@ namespace SortirovkiSHARP.Algorithm
                 } while (true);
             
             } while (true);
-
-
             return result;
         }
         public static List<KeyValuePair<int, string>> SortAlgorithm10(this IList<KeyValuePair<int, string>> mass)
