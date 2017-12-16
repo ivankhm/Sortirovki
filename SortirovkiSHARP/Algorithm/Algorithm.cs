@@ -47,8 +47,7 @@ namespace SortirovkiSHARP.Algorithm
             }
 
             return result;
-        }
-        
+        }       
         public static List<KeyValuePair<int, string>> SortAlgorithm2(this IList<KeyValuePair<int, string>> mass)
         {
             int N = mass.Count;
@@ -100,32 +99,8 @@ namespace SortirovkiSHARP.Algorithm
                 result[i] = mass[j];
                 count[mass[j].Key] = i - 1;
             }
-
-            /*
-            for (int i = u + 1; i < v+1; i++)
-            {
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    if (mass[i].Key < mass[j].Key)
-                    {
-                        count[j]++;
-                    }
-                    else
-                    {
-                        count[i]++;
-                    }
-                }
-            }
-
-            for (int i = 0; i < N; ++i)
-            {
-                count[i]--;
-            }
-            */
-
             return result;
         }
-
         public static List<KeyValuePair<int, string>> SortAlgorithm3(this IList<KeyValuePair<int, string>> mass)
         {
             //Копия изначального листа
@@ -161,10 +136,8 @@ namespace SortirovkiSHARP.Algorithm
                 //S5
                 result[i + 1] = Mm;
             }
-
             return result;
         }
-
         public static List<KeyValuePair<int, string>> SortAlgorithm4(this IList<KeyValuePair<int, string>> mass, int[] h)
         {
             var result = new List<KeyValuePair<int, string>>();
@@ -205,11 +178,8 @@ namespace SortirovkiSHARP.Algorithm
                     
                 }
             }
-
-
             return result;
         }
-
         public static List<KeyValuePair<int, string>> SortAlgorithm5(this IList<KeyValuePair<int, string>> mass)
         {
             var N = mass.Count;
@@ -289,9 +259,8 @@ namespace SortirovkiSHARP.Algorithm
                 }
             } while (MyStack.Count > 0);
 
-            return null;
+            return result_mass;
         }
-
         public static List<KeyValuePair<int, string>> SortAlgorithm6(this IList<KeyValuePair<int, string>> mass)
         {
             var N = mass.Count;
@@ -476,7 +445,7 @@ namespace SortirovkiSHARP.Algorithm
             
 
             var result = new List<KeyValuePair<int, string>>();
-
+                
             for (int t = 0; t < n + m; ++t)
             {
                 result.Add(new KeyValuePair<int, string>());
