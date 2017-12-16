@@ -381,6 +381,9 @@ namespace SortirovkiSHARP.Algorithm
             }
 
             var N = mass.Count;
+
+            /*
+
             //M1
             int t = (int)Math.Log(N, 2) + 1;
             int p = (int)Math.Pow(2, t - 1);
@@ -421,21 +424,24 @@ namespace SortirovkiSHARP.Algorithm
 
                 p /= 2;
             } while (p > 0);
+            */
 
+            
+             // Обычный пузырек
+            //var N = result.Count;
 
-            /*
-             * Обычный пузырек
-            var N = result.Count;
-
-            var BOUND = N-1;
-
+            var BOUND_RIGHT = N-1;
+            var BOUND_LEFT = 0;
+            var isToRight = true;
             int t;
-            while (true)
+            do
             {
                 t = -1;
-                if (BOUND != 0)
+                //if (BOUND != 0)
+                //{
+                if (isToRight)
                 {
-                    for (int j = 0; j < BOUND; ++j)
+                    for (int j = BOUND_LEFT; j < BOUND_RIGHT; ++j)
                     {
                         if (result[j].Key > result[j + 1].Key)
                         {
@@ -443,14 +449,28 @@ namespace SortirovkiSHARP.Algorithm
                             t = j;
                         }
                     }
+                    BOUND_RIGHT = t;
+                   
                 }
-                if (t == -1)
+                else
                 {
-                    break;
+
+                    for (int j = BOUND_RIGHT; j >= BOUND_LEFT; --j)
+                    {
+                        if (result[j].Key > result[j+1].Key)
+                        {
+                            result.Swap(j, j + 1);
+                            t = j;
+                        }
+                    }
+                    BOUND_LEFT = t;
                 }
-                BOUND = t;
-            }
-            */
+                isToRight = !isToRight;
+                    
+                //}
+                //BOUND = t;
+            } while (t != -1);
+            
             return result;
         }
         public static List<KeyValuePair<int, string>> SortAlgorithm8(this IList<KeyValuePair<int, string>> first, List<KeyValuePair<int, string>> second)
@@ -621,10 +641,51 @@ namespace SortirovkiSHARP.Algorithm
 
             return null;
         }
-        public static List<KeyValuePair<int, string>> SortAlgorithm11(this IList<KeyValuePair<int, string>> mass)
+        public static List<int[]> SortAlgorithm11(this IList<int[]> mass)
         {
+            //value - connection
+            var result = new List<int[]>
+            {
+                new int[2] { -1, mass.Count }
+            };
+            foreach (var m in mass)
+            {
+                result.Add(m);
+            }
+            var N = result.Count - 1;
+            //L1
+            result[N][1] = 0;
+            int p, q, K;
 
-            return null;
+
+            for (int j = N - 1; j < 0; ++j)
+            {
+                //L2
+                p = result[0][1];
+                q = 0;
+                K = result[j][0];
+
+                do
+                {
+                    //L3
+                    if (K <= result[p][0])
+                    {
+                        //L5
+                        break;
+                    }
+                    //L4
+                    q = p;
+                    p = result[q][1];
+                    
+                } while (p > 0);
+
+                //L5
+                result[q][1] = j;
+                result[j][1] = p;
+
+            }
+
+            return result;
         }
     }  
  }

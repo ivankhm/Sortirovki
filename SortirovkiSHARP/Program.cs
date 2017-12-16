@@ -83,7 +83,7 @@ namespace SortirovkiSHARP
                             mass = mass.SortAlgorithm3();
                             break;
                         case 4:
-                            mass = mass.SortAlgorithm4(new int[] { 5, 3, 1 });
+                            mass = mass.SortAlgorithm4(new int[] {10, 5, 3, 1 });
                             break;
                         case 6:
                             mass = mass.SortAlgorithm6();
@@ -105,6 +105,22 @@ namespace SortirovkiSHARP
                         case 9:
                             mass = mass.SortAlgorithm9();
                             break;
+                        case 11:
+                            var tmp = new List<int[]>();
+                            foreach(var m in mass)
+                            {
+                                tmp.Add(new int[2] { m.Key, -1 });
+                            }
+
+                            tmp = tmp.SortAlgorithm11();
+
+                            mass.Clear();
+                            foreach(var t in tmp)
+                            {
+                                mass.Add(new KeyValuePair<int, string>(t[0], $"{t[1]}"));
+                            }
+                            break;
+
                         default:
                             Console.WriteLine("Алгоритм пока не реализован");
                             break;
