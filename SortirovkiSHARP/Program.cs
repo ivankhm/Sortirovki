@@ -41,10 +41,10 @@ namespace SortirovkiSHARP
                 Console.WriteLine("Сортировка Шелла - 4(c 86)");
                 Console.WriteLine("Обменная поразрядная сортировка - 5(c 128)");
                 Console.WriteLine("Быстрая сортировка - 6(c 119)");
-                Console.WriteLine("Обменная сортировка слиянием(Модификация метода пузырька) - 7(c 114)");
+                Console.WriteLine("Сортировка Шейкер - 7(c 113)");
                 Console.WriteLine("Двухпутевое слияние - 8(c 164)");
                 Console.WriteLine("Пирамидальная сортировка - 9(c 150)");
-                Console.WriteLine("Бинарное слияние - 10(c 211)");
+                Console.WriteLine("Обменная сортировка слиянием - 10(c 114)");
                 Console.WriteLine("Метод вставки в список - 11(с 99)");
                 Console.WriteLine("Выйти - 12");
 
@@ -55,16 +55,23 @@ namespace SortirovkiSHARP
                 {
                     //Очищение массива и заполнение словами
                     mass.Clear();
-                    for (int i = 0; i < words.Count; ++i)
+                    for (int i = 0; i < 5; ++i)
                     {
                         mass.Add(new KeyValuePair<int, string>(i, words[i]));
                     }
+
+                    mass[0] = new KeyValuePair<int, string>(1, mass[0].Value);
+                    mass[1] = new KeyValuePair<int, string>(-3, mass[1].Value);
+                    mass[2] = new KeyValuePair<int, string>(-1, mass[2].Value);
+                    mass[3] = new KeyValuePair<int, string>(-2, mass[3].Value);
+                    mass[4] = new KeyValuePair<int, string>(-1, mass[4].Value);
+
                     //Печать ДО
                     Console.WriteLine("Изначальный лист: ");
                     PrintMass(mass);
 
                     //Перемешивание массива
-                    mass.Shuffle();
+                    //mass.Shuffle();
                     //Печать перемешанного
                     Console.WriteLine("Перемешанный лист: ");
                     PrintMass(mass);
@@ -83,7 +90,16 @@ namespace SortirovkiSHARP
                             mass = mass.SortAlgorithm3();
                             break;
                         case 4:
-                            mass = mass.SortAlgorithm4(new int[] {10, 5, 3, 1 });
+                            var tmpList = new List<int>();
+                            var ht = mass.Count / 2;
+
+                            while (ht > 1)
+                            {
+                                tmpList.Add(ht);
+                                ht = ht/ 2;
+                            }
+                            tmpList.Add(1);
+                            mass = mass.SortAlgorithm4(tmpList.ToArray());
                             break;
                         case 5:
                             mass = mass.SortAlgorithm5();
@@ -108,6 +124,9 @@ namespace SortirovkiSHARP
                         case 9:
                             mass = mass.SortAlgorithm9();
                             break;
+                        case 10:
+                            mass = mass.SortAlgorithm10();
+                            break;
                         case 11:
                             var tmp = new List<int[]>();
                             foreach(var m in mass)
@@ -117,11 +136,23 @@ namespace SortirovkiSHARP
 
                             tmp = tmp.SortAlgorithm11();
 
-                            mass.Clear();
-                            foreach(var t in tmp)
+                            Console.WriteLine("Упорядоченные связи: ");
+                            int j = 0;
+                            foreach (var tm in tmp)
                             {
-                                mass.Add(new KeyValuePair<int, string>(t[0], $"{t[1]}"));
+                                Console.WriteLine($"j = {j++} Key: {tm[0]} Value: {tm[1]}");
                             }
+
+                            var result = new List<KeyValuePair<int, string>>();
+
+                            for (int p = 0; tmp[p][1] != 0;)
+                            {
+                                result.Add(mass[tmp[p][1] - 1]);
+                                p = tmp[p][1];
+                            }
+
+                            mass = result;
+                            
                             break;
 
                         default:

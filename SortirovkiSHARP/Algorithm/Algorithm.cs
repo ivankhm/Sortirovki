@@ -8,6 +8,7 @@ namespace SortirovkiSHARP.Algorithm
 {
     static class Algorithm
     {
+        //Подсчёт сравнений
         public static List<KeyValuePair<int, string>> SortAlgorithm1(this IList<KeyValuePair<int, string>> mass)
         {
             int N = mass.Count;
@@ -49,12 +50,13 @@ namespace SortirovkiSHARP.Algorithm
 
             return result;
         }
-        
+
+        //Подсчёт распределения
         public static List<KeyValuePair<int, string>> SortAlgorithm2(this IList<KeyValuePair<int, string>> mass)
         {
             int N = mass.Count;
-            int u = 1000000, v = -1;
-            
+            int u = 1000000, v = -1000000;
+            int uchange = 0;
             //Считаем диапазон
             for (int i = 0; i < N; i++)
             {
@@ -67,10 +69,17 @@ namespace SortirovkiSHARP.Algorithm
                     v = mass[i].Key;
                 }
             }
+            if (u < 0)
+            {
+                v += -u;
+                uchange = -u;
+                u = 0;
+            }
+
+            var count = new int[v - u + 1];
             
-            var count = new int[v+1];
             //D1
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < v - u; i++)
             {
                 count[i] = 0;
             }
@@ -78,7 +87,7 @@ namespace SortirovkiSHARP.Algorithm
             for (int j = 0; j < N; j++)
             {
                 //D3
-                count[mass[j].Key]++;
+                count[mass[j].Key + uchange]++;
             }
             //D4
             for (int i = u + 1; i < v + 1; ++i)
@@ -91,42 +100,21 @@ namespace SortirovkiSHARP.Algorithm
             for (int i = 0; i < N; ++i)
             {
                 result.Add(new KeyValuePair<int, string>());
-                count[i]--;
             }
+
             //D5
-            for (int j = N-1; j >= 0; --j)
+            for (int j = N - 1; j >= 0; --j)
             {
                 //D6
-                int i = count[mass[j].Key];
+                int i = count[mass[j].Key + uchange] - 1;
                 result[i] = mass[j];
-                count[mass[j].Key] = i - 1;
+                count[mass[j].Key + uchange] = i;
             }
-
-            /*
-            for (int i = u + 1; i < v+1; i++)
-            {
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    if (mass[i].Key < mass[j].Key)
-                    {
-                        count[j]++;
-                    }
-                    else
-                    {
-                        count[i]++;
-                    }
-                }
-            }
-
-            for (int i = 0; i < N; ++i)
-            {
-                count[i]--;
-            }
-            */
-
+            
             return result;
         }
 
+        //Метод простых вставок
         public static List<KeyValuePair<int, string>> SortAlgorithm3(this IList<KeyValuePair<int, string>> mass)
         {
             //Копия изначального листа
@@ -166,6 +154,7 @@ namespace SortirovkiSHARP.Algorithm
             return result;
         }
 
+        //Сортировка Шелла
         public static List<KeyValuePair<int, string>> SortAlgorithm4(this IList<KeyValuePair<int, string>> mass, int[] h)
         {
             var result = new List<KeyValuePair<int, string>>();
@@ -211,6 +200,7 @@ namespace SortirovkiSHARP.Algorithm
             return result;
         }
 
+        //Обменная поразрядная сортировка
         public static List<KeyValuePair<int, string>> SortAlgorithm5(this IList<KeyValuePair<int, string>> mass)
         {
             var N = mass.Count;
@@ -224,25 +214,14 @@ namespace SortirovkiSHARP.Algorithm
             //var result = Convert.ToString(number, 2);     
             var MyStack = new Stack<int[]>();
             int[] temp = new int[2];
-            List<KeyValuePair<int, string>> result_mass = new List<KeyValuePair<int, string>>
+            
+
+            var result_mass = new List<KeyValuePair<int, string>>();
+
+            foreach (var ma in mass)
             {
-                new KeyValuePair<int, string>(0075, "Smile"),
-                new KeyValuePair<int, string>(0127, "Sweet"),
-                new KeyValuePair<int, string>(0232, "Sister"),
-                new KeyValuePair<int, string>(0252, "Sadistic"),
-                new KeyValuePair<int, string>(0423, "Surprise"),
-                new KeyValuePair<int, string>(0652, "Service"),
-                new KeyValuePair<int, string>(0767, "We"),
-                new KeyValuePair<int, string>(0775, "are"),
-                new KeyValuePair<int, string>(1000, "STYLE"),
-                new KeyValuePair<int, string>(1444, "!"),
-                new KeyValuePair<int, string>(1215, "Error1"),
-                new KeyValuePair<int, string>(1245, "Error2"),
-                new KeyValuePair<int, string>(1277, "Error3"),
-                new KeyValuePair<int, string>(1375, "Error4"),
-                new KeyValuePair<int, string>(1601, "Error5"),
-                new KeyValuePair<int, string>(1614, "Error6")
-            };
+                result_mass.Add(ma);
+            }
 
             do
             {
@@ -293,6 +272,8 @@ namespace SortirovkiSHARP.Algorithm
 
             return result_mass;
         }
+
+        //Быстрая сортировка
         public static List<KeyValuePair<int, string>> SortAlgorithm6(this IList<KeyValuePair<int, string>> mass)
         {
             var N = mass.Count;
@@ -387,7 +368,8 @@ namespace SortirovkiSHARP.Algorithm
             } while (r-l>0);
             return result_mass;
         }
-        
+
+        //Сортировка Шейкер
         public static List<KeyValuePair<int, string>> SortAlgorithm7(this IList<KeyValuePair<int, string>> mass)
         {
 
@@ -399,55 +381,7 @@ namespace SortirovkiSHARP.Algorithm
             }
 
             var N = mass.Count;
-
-            /*
-
-            //M1
-            int t = (int)Math.Log(N, 2) + 1;
-            int p = (int)Math.Pow(2, t - 1);
-            //M2
-            do
-            {
-                int q = (int)Math.Pow(2, t - 1);
-                int r = 0;
-                int d = p;
-
-                //M3
-                do
-                {
-                    for (int i = 0; (i < N - d); ++i)
-                    {
-                        if ((i & p) == r)
-                        {
-                            //M4
-                            if (result[i].Key > result[i + d].Key)
-                            {
-                                result.Swap(i, i + d);
-                            }
-                        }
-                    }
-                    //M5
-                    if (q != p)
-                    {
-                        d = q - p;
-                        q /= 2;
-                        r = p;
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                } while (true);
-
-                p /= 2;
-            } while (p > 0);
-            */
-
-            
-             // Обычный пузырек
-            //var N = result.Count;
-
+         
             var BOUND_RIGHT = N-1;
             var BOUND_LEFT = 0;
             var isToRight = true;
@@ -455,8 +389,6 @@ namespace SortirovkiSHARP.Algorithm
             do
             {
                 t = -1;
-                //if (BOUND != 0)
-                //{
                 if (isToRight)
                 {
                     for (int j = BOUND_LEFT; j < BOUND_RIGHT; ++j)
@@ -468,11 +400,9 @@ namespace SortirovkiSHARP.Algorithm
                         }
                     }
                     BOUND_RIGHT = t;
-                   
                 }
                 else
                 {
-
                     for (int j = BOUND_RIGHT; j >= BOUND_LEFT; --j)
                     {
                         if (result[j].Key > result[j+1].Key)
@@ -484,19 +414,17 @@ namespace SortirovkiSHARP.Algorithm
                     BOUND_LEFT = t;
                 }
                 isToRight = !isToRight;
-                    
-                //}
-                //BOUND = t;
             } while (t != -1);
             
             return result;
         }
+
+        //Двухпутевое слияние - НЕ НАДО
         public static List<KeyValuePair<int, string>> SortAlgorithm8(this IList<KeyValuePair<int, string>> first, List<KeyValuePair<int, string>> second)
         {
             var n = second.Count;
             var m = first.Count;
             
-
             var result = new List<KeyValuePair<int, string>>();
 
             for (int t = 0; t < n + m; ++t)
@@ -570,6 +498,8 @@ namespace SortirovkiSHARP.Algorithm
 
             return result;
         }
+
+        //Пирамидальная сортировка
         public static List<KeyValuePair<int, string>> SortAlgorithm9(this IList<KeyValuePair<int, string>> mass)
         {
             var result = new List<KeyValuePair<int, string>>();
@@ -579,7 +509,6 @@ namespace SortirovkiSHARP.Algorithm
                 result.Add(m);
             }
             var N = result.Count;
-
             
             int l; 
             int r;
@@ -605,66 +534,118 @@ namespace SortirovkiSHARP.Algorithm
                     {
                         result[0] = tmp;
                         //end
-                        break;
                     }
                 }
 
-                //protaskivanie
-
-                //H3
-                j = l;
-
-                do
+                if (r != 1)
                 {
-                    //H4
-                    i = j;//??
-                    j *= 2;
+                    //H3
+                    j = l;
 
-                    if (j <= r)
+                    do
                     {
-                        //HX
-                        if (j != r)
-                        {
-                            //H5
-                            if (result[j - 1].Key < result[j].Key)
-                            {
-                                j++;
-                            }
-                        }
-                        //H6
-                        if (tmp.Key < result[j - 1].Key)
-                        {
-                            //H7
-                            result[i - 1] = result[j - 1];
-                            //H4
-                            continue;
-                        }
+                        //H4
+                        i = j;
+                        j *= 2;
 
-                    }
+                        if (j <= r)
+                        {
+                            //HX
+                            if (j != r)
+                            {
+                                //H5
+                                if (result[j - 1].Key < result[j].Key)
+                                {
+                                    j++;
+                                }
+                            }
+                            //H6
+
+                            if (tmp.Key < result[j - 1].Key)
+                            {
+                                //H7
+                                result[i - 1] = result[j - 1];
+                                //H4
+                            }
+
+                        }
+                        //H2
+                    } while ((j <= r) && (tmp.Key < result[j - 1].Key));
 
                     //H8
                     result[i - 1] = tmp;
-                    //H2
-                    break;
-                    
-                } while (true);
-            
-            } while (true);
+                }
+                
+            } while (r != 1);
 
 
             return result;
         }
+
+        //Обменная сортировка слиянием
         public static List<KeyValuePair<int, string>> SortAlgorithm10(this IList<KeyValuePair<int, string>> mass)
         {
+            var result = new List<KeyValuePair<int, string>>();
 
-            return null;
+            foreach (var m in mass)
+            {
+                result.Add(m);
+            }
+
+            var N = mass.Count;
+            
+            //M1
+            int t = (int)Math.Log(N, 2) + 1;
+            int p = (int)Math.Pow(2, t - 1);
+            //M2
+            do
+            {
+                int q = (int)Math.Pow(2, t - 1);
+                int r = 0;
+                int d = p;
+                bool isCon;
+                //M3
+                do
+                {
+                    for (int i = 0; i < N - d; ++i)
+                    {
+                        if ((i & p) == r)
+                        {
+                            //M4
+                            if (result[i].Key > result[i + d].Key)
+                            {
+                                result.Swap(i, i + d);
+                            }
+                        }
+                    }
+                    //M5
+                    isCon = true;
+                    //Тут без временной переменной, так как 
+                    //после выполнения условия продолжения, переменные, 
+                    //влияющие на это условие - меняются
+                    if (isCon = (q != p))
+                    {
+                        d = q - p;
+                        q /= 2;
+                        r = p;
+                        //continue;
+                    }
+
+                } while (isCon);
+
+                p /= 2;
+            } while (p > 0);
+
+            return result;
         }
+
+        //Метод вставки в список
         public static List<int[]> SortAlgorithm11(this IList<int[]> mass)
         {
             //value - connection
             var result = new List<int[]>
             {
-                new int[2] { -1, mass.Count }
+                new int[2] { -1000, mass.Count }
             };
             foreach (var m in mass)
             {
@@ -674,9 +655,8 @@ namespace SortirovkiSHARP.Algorithm
             //L1
             result[N][1] = 0;
             int p, q, K;
-
-
-            for (int j = N - 1; j < 0; ++j)
+            
+            for (int j = N - 1; j >= 1; --j)
             {
                 //L2
                 p = result[0][1];
@@ -702,7 +682,7 @@ namespace SortirovkiSHARP.Algorithm
                 result[j][1] = p;
 
             }
-
+            
             return result;
         }
     }  
