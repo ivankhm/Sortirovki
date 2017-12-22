@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SortirovkiSHARP.Extentions
 {
@@ -29,9 +26,9 @@ namespace SortirovkiSHARP.Extentions
             }
         }
 
-        public static int GetBit(int bits, int index)
+        public static int GetBit(int bits, int index, int m)
         {
-            return (bits >> index) & 1;
+            return (bits >> (m-index)) & 1;
         }
     }
 }
