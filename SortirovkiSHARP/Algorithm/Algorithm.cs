@@ -217,7 +217,7 @@ namespace SortirovkiSHARP.Algorithm
             int i = 0;
             var m = 11;
             int flag = 0;
-            int ssanina = 0;
+            int isO = 0;
             var MyStack = new List<int[]>();
 
             do
@@ -253,7 +253,9 @@ namespace SortirovkiSHARP.Algorithm
                                     }
                                     else break;
                                 } while (tempo != 0);
-                                if (flag == 0) break;
+
+                                if (flag == 0)
+                                    break;
                             }//R4
                             else i++;
                         } while (i <= j);
@@ -276,7 +278,7 @@ namespace SortirovkiSHARP.Algorithm
                     else if (l == r) break;
                 } while ((j <= l) || (j == r));
                 //R10
-                ssanina = 1;
+                isO = 1;
                 if (MyStack.Count > 0)
                 {
                     l = r + 1;
@@ -285,9 +287,9 @@ namespace SortirovkiSHARP.Algorithm
                     r = temp[0];
                     b = temp[1];
                     MyStack.RemoveAt(MyStack.Count - 1);
-                    ssanina = 0;
+                    isO = 0;
                 }
-            } while (ssanina == 0);
+            } while (isO == 0);
 
             return result_mass;
         }
@@ -299,8 +301,8 @@ namespace SortirovkiSHARP.Algorithm
             int l = 1;
             int r = N;
             int M = 1;
-            int govno = 0;
-            int ssanina = 0;
+            int F1 = 0;
+            int F2 = 0;
             var MyStack = new List<int[]>();
             List<KeyValuePair<int, string>> result_mass = new List<KeyValuePair<int, string>>();
             result_mass.Clear();
@@ -361,11 +363,11 @@ namespace SortirovkiSHARP.Algorithm
                         r = j - 1;
                     }
                     else
-                        govno = 1;
-                } while (govno == 0);
-                govno = 0;
+                        F1 = 1;
+                } while (F1 == 0);
+                F1 = 0;
                 //Q8
-                ssanina = 1;
+                F2 = 1;
                 if (MyStack.Count != 0)
                 {
                     int[] temp = new int[2];
@@ -373,9 +375,9 @@ namespace SortirovkiSHARP.Algorithm
                     l = temp[0];
                     r = temp[1];
                     MyStack.RemoveAt(MyStack.Count - 1);
-                    ssanina = 0;
+                    F2 = 0;
                 }
-            } while (ssanina == 0);
+            } while (F2 == 0);
             return result_mass;
         }
 
@@ -630,7 +632,7 @@ namespace SortirovkiSHARP.Algorithm
                     }
                     //M5
                     isCon = true;
-                    //Тут без временной переменной, так как 
+                    //Тут без временной переменной никак, так как 
                     //после выполнения условия продолжения, переменные, 
                     //влияющие на это условие - меняются
                     if (isCon = (q != p))

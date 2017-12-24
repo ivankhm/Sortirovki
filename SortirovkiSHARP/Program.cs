@@ -1,4 +1,4 @@
-
+﻿
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,16 +56,18 @@ namespace SortirovkiSHARP
                 {
                     //Очищение массива и заполнение словами
                     mass.Clear();
-                    for (int i = 0; i < words.Count; ++i)
+                    for (int i = 0; i < 7; ++i)
                     {
                         mass.Add(new KeyValuePair<int, string>(i, words[i]));
                     }
 
                     mass[0] = new KeyValuePair<int, string>(-1, mass[0].Value);
+                    //mass[1] = new KeyValuePair<int, string>(1, mass[2].Value);
                     mass[2] = new KeyValuePair<int, string>(1, mass[2].Value);
-                    //mass[2] = new KeyValuePair<int, string>(-1, mass[2].Value);
-                    //mass[3] = new KeyValuePair<int, string>(-2, mass[3].Value);
-                    //mass[4] = new KeyValuePair<int, string>(-1, mass[4].Value);
+                    //mass[3] = new KeyValuePair<int, string>(2, mass[3].Value);
+                    //mass[4] = new KeyValuePair<int, string>(5, mass[4].Value);
+                    //mass[5] = new KeyValuePair<int, string>(2, mass[5].Value);
+                    //mass[6] = new KeyValuePair<int, string>(4, mass[6].Value);
 
                     //Печать ДО
                     Console.WriteLine("Изначальный лист: ");
